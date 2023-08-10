@@ -38,18 +38,20 @@ public class Person {
     }
 
     public int getAge() {
-        //get the current time
+        if(birthday==null) {
+            return -1;
+        }
+        //get the current date
         LocalDate currentDate = LocalDate.now();
         return Period.between(birthday, currentDate).getYears();
     }
 
     public void printPerson() {
-        // ...
         String output = "%s is %d years old. They are a %s. Their email is %s\n";
         System.out.format(output, name, getAge(), gender, emailAddress);
     }
 
-    public static void printPersons(List<Person> roster, CheckPerson tester) {
+    public static void printPersons(List<Person> roster, CheckPersonInterface tester) {
         for (Person p : roster) {
             if (tester.test(p)) {
                 p.printPerson();
